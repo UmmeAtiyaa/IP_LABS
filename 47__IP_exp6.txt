@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Features Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px 0;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>JavaScript Web Page Example</h1>
+    <p>Enter two numbers:</p>
+    
+    <label for="num1">Number 1:</label>
+    <input type="number" id="num1" placeholder="Enter first number"><br>
+
+    <label for="num2">Number 2:</label>
+    <input type="number" id="num2" placeholder="Enter second number"><br>
+
+    <button id="calculateButton">Calculate Sum</button>
+
+    <p id="result"></p>
+
+    <script>
+        // Variables
+        let number1, number2, result;
+
+        // Function to calculate sum
+        function calculateSum() {
+            // Get values from input fields
+            number1 = parseInt(document.getElementById("num1").value);
+            number2 = parseInt(document.getElementById("num2").value);
+            
+            // Operators and Conditions
+            if (isNaN(number1) || isNaN(number2)) {
+                document.getElementById("result").innerHTML = "Please enter valid numbers.";
+                return;
+            }
+
+            // Using Operators
+            result = number1 + number2;
+
+            // Using Loops (Example with for loop)
+            let message = "";
+            for (let i = 1; i <= result; i++) {
+                if (i === result) {
+                    message += i;
+                } else {
+                    message += i + ", ";
+                }
+            }
+
+            // Display result using Events
+            document.getElementById("result").innerHTML = `Sum is: ${result}<br>Numbers from 1 to sum: ${message}`;
+
+            // Check if sum is greater than 10 using Conditions
+            if (result > 10) {
+                document.getElementById("result").innerHTML += "<br>That's a large sum!";
+            } else {
+                document.getElementById("result").innerHTML += "<br>That's a small sum.";
+            }
+
+            // Use of Class and Object
+            let user = new User("John Doe");
+            user.greet();
+        }
+
+        // Class and Object Example
+        class User {
+            constructor(name) {
+                this.name = name;
+            }
+
+            // Class Method
+            greet() {
+                console.log("Welcome, " + this.name);
+            }
+        }
+
+        // Event Listener
+        document.getElementById("calculateButton").addEventListener("click", calculateSum);
+
+    </script>
+</body>
+</html>

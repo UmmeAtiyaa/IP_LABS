@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Validation and Array Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+        }
+        #result, #arrayResult {
+            margin-top: 20px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>User Registration Form</h1>
+
+    <!-- Form to collect user details -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" placeholder="Enter your name"><br>
+
+    <label for="email">Email:</label>
+    <input type="text" id="email" placeholder="Enter your email"><br>
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob"><br>
+
+    <label for="hobbies">Hobbies (comma separated):</label>
+    <input type="text" id="hobbies" placeholder="Enter your hobbies"><br>
+
+    <button onclick="registerUser()">Register</button>
+
+    <p id="result"></p>
+    <p id="arrayResult"></p>
+
+    <script>
+        // Function to handle user registration
+        function registerUser() {
+            // Input fields
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let dob = document.getElementById("dob").value;
+            let hobbies = document.getElementById("hobbies").value;
+
+            // Validate name
+            if (name === "" || name.length < 3) {
+                document.getElementById("result").innerHTML = "Please enter a valid name with at least 3 characters.";
+                return;
+            }
+
+            // Validate email using simple check
+            if (!email.includes("@") || !email.includes(".")) {
+                document.getElementById("result").innerHTML = "Please enter a valid email.";
+                return;
+            }
+
+            // Validate date of birth
+            if (dob === "") {
+                document.getElementById("result").innerHTML = "Please enter your date of birth.";
+                return;
+            }
+
+            // Validate hobbies - ensuring at least one hobby is entered
+            if (hobbies === "") {
+                document.getElementById("result").innerHTML = "Please enter your hobbies.";
+                return;
+            }
+
+            // Split hobbies into an array (string operation)
+            let hobbiesArray = hobbies.split(",").map(hobby => hobby.trim());
+
+            // Check if more than one hobby was entered
+            if (hobbiesArray.length < 1) {
+                document.getElementById("result").innerHTML = "Please enter at least one hobby.";
+                return;
+            }
+
+            // Calculate age based on date of birth
+            let age = calculateAge(dob);
+
+            // Display user details
+            document.getElementById("result").innerHTML = `Name: ${name}<br>Email: ${email}<br>Age: ${age}<br>Hobbies: ${hobbiesArray.join(", ")}`;
+
+            // Array operation: add a new hobby and display all hobbies
+            hobbiesArray.push("New Hobby");
+            document.getElementById("arrayResult").innerHTML = `Updated Hobbies: ${hobbiesArray.join(", ")}`;
+        }
+
+        // Function to calculate age based on date of birth
+        function calculateAge(dob) {
+            let dobDate = new Date(dob);
+            let today = new Date();
+            let age = today.getFullYear() - dobDate.getFullYear();
+            let monthDiff = today.getMonth() - dobDate.getMonth();
+
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
+                age--;
+            }
+
+            return age;
+        }
+    </script>
+
+</body>
+</html>
